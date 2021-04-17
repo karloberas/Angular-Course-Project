@@ -1,11 +1,11 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
-import { BehaviorSubject, throwError } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
-import { User } from "./user.model";
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { User } from './user.model';
 import { environment } from '../../environments/environment';
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import * as fromApp from '../store/app.reducer';
 import * as AuthActions from './store/auth.actions';
 
@@ -22,15 +22,15 @@ export interface AuthResponseData {
 export class AuthService {
     // user = new BehaviorSubject<User>(null);
     private tokenExpirationTimer: any;
-    
+
     constructor(private http: HttpClient, private router: Router, private store: Store<fromApp.AppState>) {}
 
     signUp(email: string, password: string) {
         return this.http.post<AuthResponseData>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.firebaseAPIKey,
             {
-                email: email,
-                password: password,
+                email,
+                password,
                 returnSecureToken: true
             }
         ).pipe(catchError(this.handleError), tap((response) => {
@@ -42,8 +42,8 @@ export class AuthService {
         return this.http.post<AuthResponseData>(
             'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey,
             {
-                email: email,
-                password: password,
+                email,
+                password,
                 returnSecureToken: true
             }
         ).pipe(catchError(this.handleError), tap((response) => {
@@ -66,7 +66,7 @@ export class AuthService {
         const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpirationDate));
         if (loadedUser.token) {
             // this.user.next(loadedUser);
-            this.store.dispatch(new AuthActions.Login({
+            this.store.dispatch(new AuthActions.AuthenticateSuccess({
                 email: loadedUser.email,
                 userId: loadedUser.id,
                 token: loadedUser.token,
@@ -97,17 +97,17 @@ export class AuthService {
             return throwError(errorMessage);
         }
 
-        switch(errorRes.error.error.message) {
+        switch (errorRes.error.error.message) {
             case 'EMAIL_EXISTS': {
                 errorMessage = 'The email address is already in use by another account.';
                 break;
             }
             case 'EMAIL_NOT_FOUND': {
-                errorMessage = 'The email is invalid.'
+                errorMessage = 'The email is invalid.';
                 break;
             }
             case 'INVALID_PASSWORD': {
-                errorMessage = 'The password is invalid.'
+                errorMessage = 'The password is invalid.';
             }
         }
 
@@ -117,12 +117,12 @@ export class AuthService {
     private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
         // this.user.next(user);
-        this.store.dispatch(new AuthActions.Login({
+        this.store.dispatch(new AuthActions.AuthenticateSuccess({
             email,
             userId,
             token,
             expirationDate
-        }))
+        }));
         this.autoLogout(expiresIn * 1000);
         const user = new User(email, userId, token, expirationDate);
         localStorage.setItem('userData', JSON.stringify(user));
