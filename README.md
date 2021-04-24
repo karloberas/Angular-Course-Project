@@ -16,7 +16,8 @@ This course project is my output from learning the [Angular - The Complete Guide
 - Authentication with [Firebase Database](https://firebase.google.com/docs/reference/rest/auth) and [JWT](https://jwt.io)
 - [Dynamic Components](https://angular.io/guide/dynamic-component-loader)
 - [Modules](https://angular.io/guide/dynamic-component-loader)
-- State Management with NgRx
+- [State Management with NgRx](https://ngrx.io/docs)
+  - Alternative NgRx syntax 
 
 ## Instructions
 - To run this project, you need to create your own environment directory inside src and the relevant `enironment.ts` file with the following content:
