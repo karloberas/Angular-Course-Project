@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment';
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
     imports: [
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer),
         EffectsModule.forRoot([AuthEffects, RecipesEffects]),
