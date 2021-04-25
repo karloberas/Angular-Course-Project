@@ -19,7 +19,7 @@ import { environment } from 'src/environments/environment';
 @NgModule({
     declarations: [AppComponent, HeaderComponent],
     imports: [
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        BrowserModule.withServerTransition({ appId: 'serverApp' }), // keep state and transition to Angular app on the client
         AppRoutingModule,
         StoreModule.forRoot(fromApp.appReducer),
         EffectsModule.forRoot([AuthEffects, RecipesEffects]),

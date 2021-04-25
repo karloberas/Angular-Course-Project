@@ -18,6 +18,7 @@ This course project is my output from learning the [Angular - The Complete Guide
 - [Modules](https://angular.io/guide/dynamic-component-loader)
 - [State Management with NgRx](https://ngrx.io/docs)
   - Alternative NgRx syntax 
+- [Angular Universal for Server Pre-rendering](https://angular.io/guide/universal)
 
 ## Instructions
 - To run this project, you need to create your own environment directory inside src and the relevant `enironment.ts` file with the following content:
