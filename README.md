@@ -17,6 +17,11 @@ This course project is my output from learning the [Angular - The Complete Guide
 - [Dynamic Components](https://angular.io/guide/dynamic-component-loader)
 - [Modules](https://angular.io/guide/dynamic-component-loader)
 - State Management with NgRx
+- Unit Testing
+  - [Official Docs](https://angular.io/docs/ts/latest/guide/testing.html)
+  - [Testing with Jasmine](https://semaphoreci.com/community/tutorials/testing-components-in-angular-2-with-jasmine)
+  - [Run unit tests with CLI](https://github.com/angular/angular-cli/wiki/test)
+  - [Run E2E tests with CLI](https://github.com/angular/angular-cli/wiki/e2e)
 
 ## Instructions
 - To run this project, you need to create your own environment directory inside src and the relevant `enironment.ts` file with the following content:
